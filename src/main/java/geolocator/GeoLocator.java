@@ -19,11 +19,11 @@ public class GeoLocator {
 
     public GeoLocator() {}
 
-    public GeoLocation getGeoLocation() throws IOException {
+    public geolocator.GeoLocation getGeoLocation() throws IOException {
         return getGeoLocation(null);
     }
 
-    public GeoLocation getGeoLocation(String ipAddrOrHost) throws IOException {
+    public geolocator.GeoLocation getGeoLocation(String ipAddrOrHost) throws IOException {
         URL url;
         if (ipAddrOrHost != null) {
             ipAddrOrHost = UrlEscapers.urlPathSegmentEscaper().escape(ipAddrOrHost);
@@ -32,7 +32,7 @@ public class GeoLocator {
             url = new URL(GEOLOCATOR_SERVICE_URI);
         }
         String s = IOUtils.toString(url, "UTF-8");
-        return OBJECT_MAPPER.readValue(s, GeoLocation.class);
+        return OBJECT_MAPPER.readValue(s, geolocator.GeoLocation.class);
     }
 
     public static void main(String[] args) throws IOException {
