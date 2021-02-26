@@ -9,8 +9,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.google.common.net.UrlEscapers;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.apache.commons.io.IOUtils;
 
+@Data
 public class GeoLocator {
 
     public static final String GEOLOCATOR_SERVICE_URI = "http://ip-api.com/json/";
@@ -19,11 +23,11 @@ public class GeoLocator {
 
     public GeoLocator() {}
 
-    public geolocator.GeoLocation getGeoLocation() throws IOException {
+    public GeoLocation getGeoLocation() throws IOException {
         return getGeoLocation(null);
     }
 
-    public geolocator.GeoLocation getGeoLocation(String ipAddrOrHost) throws IOException {
+    public GeoLocation getGeoLocation(String ipAddrOrHost) throws IOException {
         URL url;
         if (ipAddrOrHost != null) {
             ipAddrOrHost = UrlEscapers.urlPathSegmentEscaper().escape(ipAddrOrHost);
@@ -32,7 +36,7 @@ public class GeoLocator {
             url = new URL(GEOLOCATOR_SERVICE_URI);
         }
         String s = IOUtils.toString(url, "UTF-8");
-        return OBJECT_MAPPER.readValue(s, geolocator.GeoLocation.class);
+        return OBJECT_MAPPER.readValue(s, GeoLocation.class);
     }
 
     public static void main(String[] args) throws IOException {
